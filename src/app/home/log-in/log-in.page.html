@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>AirSales</h2>
+  <form #logInForm="ngForm" (ngSubmit)="logIn()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label color="secondary" position="floating">Email:</ion-label>
+              <ion-input (ionInput)="email" type="email" ngModel name="email" required email></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="secondary" position="floating">Password:</ion-label>
+              <ion-input (ionInput)="password" type="password" ngModel name="password" required></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <ion-button type="submit" shape="round" expand="block" [disabled]="logInForm.invalid">Log in</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

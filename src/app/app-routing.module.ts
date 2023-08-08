@@ -9,6 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    //lazy loading
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
 ];
