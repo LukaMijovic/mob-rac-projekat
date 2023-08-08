@@ -7,6 +7,27 @@
 <ion-content>
   <h2>AirSales</h2>
 
+  <form #searchForm="ngForm" >
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="secondary" position="floating">Departures</ion-label>
+              <ion-input type="text" ngModel name="departures" required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+              <ion-icon name="caret-forward" size="large"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label color="secondary" position="floating">Arrivals</ion-label>
+              <ion-input type="text" ngModel name="arrivals" required></ion-input>
+            </ion-item>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
   <ion-tabs>
     <!-- Tab bar -->
     <ion-tab-bar slot="bottom">

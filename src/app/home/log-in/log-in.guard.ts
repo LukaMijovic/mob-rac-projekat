@@ -14,10 +14,10 @@ export class LogInGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (!this.logInService.isLogedIn) {
+    if (!this.logInService.isLoggedIn) {
       this.router.navigateByUrl("/home/log-in");
     }
 
-    return this.logInService.isLogedIn;
+    return this.logInService.isLoggedIn;
   }
 }

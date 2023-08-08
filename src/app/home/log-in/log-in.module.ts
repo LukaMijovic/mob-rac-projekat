@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LogInPageRoutingModule } from './log-in-routing.module';
 
 import { LogInPage } from './log-in.page';
+import {LogInService} from "./log-in.service";
 
 @NgModule({
   imports: [
@@ -17,4 +18,13 @@ import { LogInPage } from './log-in.page';
   ],
   declarations: [LogInPage]
 })
-export class LogInPageModule {}
+export class LogInPageModule {
+
+  constructor(private logInService: LogInService) {
+  }
+
+  logIn(email: string, password: string) {
+    this.logInService.logIn(email, password);
+  }
+
+}
