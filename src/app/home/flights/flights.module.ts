@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FlightsPageRoutingModule } from './flights-routing.module';
 
 import { FlightsPage } from './flights.page';
+import {FlightComponent} from "./flight/flight.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { FlightsPage } from './flights.page';
     IonicModule,
     FlightsPageRoutingModule
   ],
-  declarations: [FlightsPage]
+    declarations: [FlightsPage, FlightComponent]
 })
 export class FlightsPageModule {}

@@ -2,7 +2,7 @@ import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {LogInService} from "./log-in.service";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
-import {LogInPageModule} from "./log-in.module";
+
 
 @Component({
   selector: 'app-log-in',
@@ -15,7 +15,7 @@ export class LogInPage implements OnInit {
   public email:string;
   public password:string;
 
-  constructor(private router: Router, private logInService: LogInService) {
+  constructor(private logInService: LogInService, private router: Router) {
     this.email = "";
     this.password = "";
   }
@@ -30,7 +30,7 @@ export class LogInPage implements OnInit {
     this.password = password;
   }
 
-  public logIn():void {
+  public logIn() {
     this.setEmailAndPassword(this.form.value["email"], this.form.value["password"]);
     console.log(this.email + ' ' + this.password);
     this.logInService.logIn(this.email, this.password);

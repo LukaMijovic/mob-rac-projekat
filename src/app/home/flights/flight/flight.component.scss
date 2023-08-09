@@ -1,0 +1,45 @@
+ion-grid {
+  border-radius: 3rem;
+}
+ion-item {
+  padding: 0rem 1rem 0.5rem 1rem;
+  --ion-background-color: var(--ion-color-second);
+  --color: white;
+}
+
+ion-row {
+  align-items: center;
+}
+
+ion-col {
+  margin: 0.5rem;
+  text-align: center;
+  justify-items: center;
+}
+
+.col-icon {
+  margin: 0;
+  text-align: center;
+  justify-items: center;
+}
+
+//ion-button {
+//  --background: var(--ion-color-main);
+//  --background-hover: var(--ion-color-main-hover);
+//  --background-activated: var(--ion-color-main-pressed);
+//  --color: white;
+//  margin: 1rem 0rem;
+//}
+
+ion-button {
+  --background: white;
+  --background-hover: grey;
+  --background-activated: grey;
+  --color: black;
+  margin: 1rem 0rem;
+  text-align: center;
+}
+
+#col-button {
+  padding: 0rem 30%;
+}

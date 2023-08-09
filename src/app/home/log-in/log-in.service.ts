@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {CustomerLogIn} from "../../domain/customer";
+import {map} from "rxjs";
+import {CustomerDTO} from "../../domain/dto/customerDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -8,29 +10,58 @@ import {CustomerLogIn} from "../../domain/customer";
 export class LogInService {
 
   public isLoggedIn:boolean = false;
+  public customerDTO: CustomerDTO | undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private httpClientModule: HttpClientModule) {
+  }
 
-  public logIn(email:string, password:string):void {
+  public logIn(email:string, password:string) {
     console.log("Uspensa forma: " + email + " " + password);
 
-    const url = "localhost:8090/api/customer/v1/login";
+    const url = "http://localhost:8090/api/customer/v1/login";
 
     let customer = new CustomerLogIn(email, password);
-    let res = this.http.post<CustomerLogIn>(url, customer);
+    //let customerDTO: CustomerDTO = new CustomerDTO();
+    console.log("Spremam se da posaljem request");
+    this.isLoggedIn = true;
+    this.http.post<CustomerDTO>(url, customer)
+      .pipe(
+        map((resData) => {
+          console.log("Usoa u MAP");
+          return new CustomerDTO(
+            resData.id,
+            resData.username,
+            resData.email,
+            resData.password,
+            resData.phone,
+            resData.firstName,
+            resData.lastName,
+            resData.birthDate,
+            resData.city,
+            resData.country,
+            resData.accountStatus,
+            resData.registrationTime,
+            resData.lastEditTime
+          );
+        })
+      ).subscribe({next: (customerDTO) => {
+        console.log("UVATIO EVENT");
+        this.customerDTO = customerDTO;
+
+        if (this.customerDTO != undefined) {
+          console.log(this.customerDTO.id);
+        }
+      }
+      });
 
     //ovde cu pozivati SO sa servera
 
-    let customerDTO;
-    res.subscribe(response => {
-      customerDTO = response;
-    });
+    // let customerDTO;
+    // res.subscribe(response => {
+    //   console.log(response);
+    // });
 
-    //// @ts-ignore
-    // if (customerDTO.getFirstName() != "" || customerDTO.getFirstName() != null) {
-    //   this.isLoggedIn = true;
-    // }
 
-    this.isLoggedIn = true;
+    //this.isLoggedIn = true;
   }
 }

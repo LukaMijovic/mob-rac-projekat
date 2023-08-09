@@ -3,9 +3,26 @@ h2 {
 }
 
 form {
-  padding: 6rem 3rem 2rem 3rem;
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+ion-col {
+  text-align: center;
+}
+
+ion-row {
+  align-items: center;
+  margin: 2rem 0rem 2rem 0rem;
 }
 
 ion-tab-button {
   --color: var(--ion-color-second);
+}
+
+ion-button {
+  --background: var(--ion-color-main);
+  --background-hover: var(--ion-color-main-hover);
+  --background-activated: var(--ion-color-main-pressed);
+  --color: white;
+  margin: 1rem 0rem;
 }

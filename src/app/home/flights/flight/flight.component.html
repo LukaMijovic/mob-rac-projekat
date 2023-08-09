@@ -1,0 +1,41 @@
+<ion-item fill="outline">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{flight.airlineName}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{flight.airportCityDep}}</ion-label>
+      </ion-col>
+      <ion-col class="col-icon">
+        <ion-icon name="airplane"></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{flight.airportCityArr}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{flight.iataCodeDep}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{flight.iataCodeArr}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label>{{flight.departureScheduled.getHours()}}:{{flight.departureScheduled.getMinutes()}}</ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label>{{flight.arrivalScheduled.getHours()}}:{{flight.arrivalScheduled.getMinutes()}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col id="col-button">
+        <ion-button shape="round" expand="block">Details</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>

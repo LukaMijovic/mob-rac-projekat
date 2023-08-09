@@ -1,18 +1,18 @@
 export class CustomerDTO {
   constructor(
-    private id:number,
-    private username:string,
-    private email:string,
-    private password:string,
-    private phone:string,
-    private firstName:string,
-    private lastName:string,
-    private birthDate:Date,
-    private city:string,
-    private country:string,
-    private accountStatus:string,
-    private registrationTime:Date,
-    private lastEditTime:Date
+    public id:number,
+    public username:string,
+    public email:string,
+    public password:string,
+    public phone:string,
+    public firstName:string,
+    public lastName:string,
+    public birthDate:Date,
+    public city:string,
+    public country:string,
+    public accountStatus:string,
+    public registrationTime:Date,
+    public lastEditTime:Date
   ) {
   }
 
