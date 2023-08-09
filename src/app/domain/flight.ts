@@ -2,8 +2,8 @@ export class Flight {
   constructor(
     public id: number,
     public flightDate: Date,
-    public departureScheduled: Date,
-    public arrivalScheduled: Date,
+    public departureScheduled: any,
+    public arrivalScheduled: any,
     public airlineName: string,
     public airlineImage: string,
     public airportCityDep: string,

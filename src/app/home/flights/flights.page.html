@@ -8,18 +8,18 @@
   <h2>AirSales</h2>
 
   <form #flightsForm="ngForm" (ngSubmit)="searchFlights()">
-    <ion-grid>
+    <ion-grid [fixed]="true">
       <ion-row>
-          <ion-col>
+          <ion-col size="5">
             <ion-item fill="outline">
               <ion-label color="secondary" position="floating">Departures</ion-label>
               <ion-input type="text" ngModel name="departures" required></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col size="2">
             <ion-icon name="arrow-forward" size="large"></ion-icon>
           </ion-col>
-          <ion-col>
+          <ion-col size="5">
             <ion-item fill="outline">
               <ion-label color="secondary" position="floating">Arrivals</ion-label>
               <ion-input type="text" ngModel name="arrivals" required></ion-input>
@@ -41,7 +41,7 @@
       </ion-row>
     </ion-grid>
   </form>
-  <app-flight *ngFor="let flight of flights" [flight]="flight" [routerLink]="['/', 'home', 'flights', flight.id]"></app-flight>
+  <app-flight *ngFor="let flight of flights" [flight]="flight"></app-flight>
 </ion-content>
 
 <ion-footer>

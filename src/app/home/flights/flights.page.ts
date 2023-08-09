@@ -72,8 +72,18 @@ export class FlightsPage implements OnInit {
 
   searchFlights() {
     let params = new SearchParameters(this.form.value["departures"], this.form.value["arrivals"], this.form.value["date"]);
-
-    this.flightsService.searchFlights(params).subscribe((flightsData) => {
+    //console.log(this.form.value["date"]);
+    this.flightsService.searchFlights(params).subscribe(flightsData => {
+      console.log(new Date('2023-07-26T15:30:00'));
+      console.log(new Date())
+      console.log(new Date(flightsData[0].flightDate).getHours());
+      // console.log(new Date().getHours());
+      // console.log(flightsData[0].departureScheduled);
+      // console.log((flightsData[0].departureScheduled as Date).getHours());
+      flightsData.map(flight => {
+        flight.departureScheduled = new Date(flight.departureScheduled);
+        flight.arrivalScheduled = new Date(flight.arrivalScheduled);
+      });
       this.flights = flightsData;
     });
   }

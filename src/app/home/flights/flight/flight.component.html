@@ -29,7 +29,7 @@
         <ion-label>{{flight.departureScheduled.getHours()}}:{{flight.departureScheduled.getMinutes()}}</ion-label>
       </ion-col>
       <ion-col>
-        <ion-label>{{flight.arrivalScheduled.getHours()}}:{{flight.arrivalScheduled.getMinutes()}}</ion-label>
+        <ion-label *ngIf="!(flight.arrivalScheduled.getFullYear() === 1970)">{{flight.arrivalScheduled.getHours()}}:{{flight.arrivalScheduled.getMinutes()}}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>
