@@ -10,9 +10,14 @@ import {CustomerDTO} from "../../domain/dto/customerDTO";
 export class LogInService {
 
   public isLoggedIn:boolean = false;
-  public customerDTO: CustomerDTO | undefined;
+  //public customerDTO: CustomerDTO | undefined;
+  private static userId: number;
 
-  constructor(private http: HttpClient, private httpClientModule: HttpClientModule) {
+  constructor(private http: HttpClient) {
+  }
+
+  public static getUserId(): number {
+   return LogInService.userId;
   }
 
   public logIn(email:string, password:string) {
@@ -23,11 +28,13 @@ export class LogInService {
     let customer = new CustomerLogIn(email, password);
     //let customerDTO: CustomerDTO = new CustomerDTO();
     console.log("Spremam se da posaljem request");
-    this.isLoggedIn = true;
-    this.http.post<CustomerDTO>(url, customer)
+    return this.http.post<CustomerDTO>(url, customer)
       .pipe(
         map((resData) => {
           console.log("Usoa u MAP");
+
+          LogInService.userId = resData.id;
+          this.isLoggedIn = true;
           return new CustomerDTO(
             resData.id,
             resData.username,
@@ -44,15 +51,7 @@ export class LogInService {
             resData.lastEditTime
           );
         })
-      ).subscribe({next: (customerDTO) => {
-        console.log("UVATIO EVENT");
-        this.customerDTO = customerDTO;
-
-        if (this.customerDTO != undefined) {
-          console.log(this.customerDTO.id);
-        }
-      }
-      });
+      );
 
     //ovde cu pozivati SO sa servera
 

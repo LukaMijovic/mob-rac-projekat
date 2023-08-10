@@ -14,44 +14,7 @@ export class FlightsPage implements OnInit {
 
   @ViewChild("flightsForm", {static: true}) form!: NgForm;
 
-  public flights: Flight[] = [
-    {
-      id: 1,
-      flightDate: new Date(),
-      departureScheduled: new Date(),
-      arrivalScheduled: new Date(),
-      airlineName: "TEST",
-      airlineImage: "...",
-      airportCityDep: "BEOGRAD",
-      airportCityArr: "ZAGREB",
-      iataCodeDep: "BEG",
-      iataCodeArr: "ZGB"
-    },
-    {
-      id: 2,
-      flightDate: new Date(),
-      departureScheduled: new Date(),
-      arrivalScheduled: new Date(),
-      airlineName: "TEST2",
-      airlineImage: "...2",
-      airportCityDep: "BEOGRAD2",
-      airportCityArr: "ZAGREB2",
-      iataCodeDep: "BEG2",
-      iataCodeArr: "ZGB2"
-    },
-    {
-      id: 3,
-      flightDate: new Date(),
-      departureScheduled: new Date(),
-      arrivalScheduled: new Date(),
-      airlineName: "TEST3",
-      airlineImage: "...3",
-      airportCityDep: "BEOGRAD3",
-      airportCityArr: "ZAGREB3",
-      iataCodeDep: "BEG3",
-      iataCodeArr: "ZGB3"
-    }
-  ];
+  public flights: Flight[] = [];
   @ViewChild("calendarInput", {static: true}) calendarInput!: IonInput;
   public inputModel: string = "";
 

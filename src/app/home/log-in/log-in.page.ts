@@ -33,8 +33,12 @@ export class LogInPage implements OnInit {
   public logIn() {
     this.setEmailAndPassword(this.form.value["email"], this.form.value["password"]);
     console.log(this.email + ' ' + this.password);
-    this.logInService.logIn(this.email, this.password);
-
-    this.router.navigateByUrl("/home/flights");
+    this.logInService.logIn(this.email, this.password).subscribe({next: (customerDTO) => {
+        console.log("UVATIO EVENT");
+          console.log("Pocela navigacija");
+          this.router.navigateByUrl("/home/flights");
+          console.log("Navigirao!");
+      }
+    });
   }
 }
