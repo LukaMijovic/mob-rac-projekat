@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Flight} from "../../../domain/flight";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FlightsService} from "../flights.service";
-import {NavController} from "@ionic/angular";
-import {FlightComponent} from "../flight/flight.component";
+import {ModalController, NavController} from "@ionic/angular";
+import {PriceListDTO} from "../../../domain/dto/priceListDTO";
+import {PriceListModalComponent} from "./price-list-modal/price-list-modal.component";
 
 @Component({
   selector: 'app-flight-details',
@@ -26,7 +27,16 @@ export class FlightDetailsPage implements OnInit {
   };
   public isLoading: boolean = false;
 
-  constructor(private route: ActivatedRoute, private flightService: FlightsService, private navCtrl: NavController) { }
+  public priceList: PriceListDTO = {
+    id: -1,
+    economy: -2,
+    economyPlus: -3,
+    preferredEconomy: -4,
+    business: -5,
+    firstClass: -6
+  };
+
+  constructor(private router: Router, private route: ActivatedRoute, private flightService: FlightsService, private navCtrl: NavController, private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
@@ -43,14 +53,28 @@ export class FlightDetailsPage implements OnInit {
             flight.departureScheduled = new Date(flight.departureScheduled);
             flight.arrivalScheduled = new Date(flight.arrivalScheduled);
 
+
             this.flight = flight;
             this.isLoading = false;
           }
         );
 
-        this.flightService.getClassPrices(paramMap.get('id'));
+            // this.flightService.getClassPrices(paramMap.get('id')).subscribe(
+            //   priceList => {
+            //     this.priceList = priceList;
+            //   }
+            // );
       }
     )
   }
+
+  openModal() {
+    this.modalCtrl.create({
+      component: PriceListModalComponent
+    }).then(modal => {
+      modal.present();
+    });
+  }
+
 
 }

@@ -1,6 +1,9 @@
 
 ion-card {
  text-align: center;
+  margin: 2rem;
+  --background: var(--ion-color-main);
+  --color: white;
 }
 
 #div-img {

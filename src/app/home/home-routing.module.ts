@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'flights',
     loadChildren: () => import('./flights/flights.module').then( m => m.FlightsPageModule),
     canLoad: [LogInGuard]
+  },
+  {
+    path: 'reservation',
+    loadChildren: () => import('./reservation/reservation.module').then( m => m.ReservationPageModule)
   }
 ];
 

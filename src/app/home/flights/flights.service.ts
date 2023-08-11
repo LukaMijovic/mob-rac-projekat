@@ -10,6 +10,8 @@ import {PriceListDTO} from "../../domain/dto/priceListDTO";
 })
 export class FlightsService {
 
+  static flightId: number;
+
   constructor(private http: HttpClient) { }
 
   searchFlights(params: SearchParameters): Observable<Flight[]> {
@@ -27,12 +29,17 @@ export class FlightsService {
   }
 
   getClassPrices(flightId: string | null) {
-    const url = ``;
+    const url = `http://localhost:8090/api/pricelist/v1/flight/${flightId}`;
 
     return this.http.get<PriceListDTO>(url).pipe(
       map(resData => {
         return new PriceListDTO(
-
+          resData.id,
+          resData.economy,
+          resData.economyPlus,
+          resData.preferredEconomy,
+          resData.business,
+          resData.firstClass
         );
       })
     );
@@ -43,6 +50,9 @@ export class FlightsService {
 
     return this.http.get<Flight>(url).pipe(
       map(resData => {
+
+        FlightsService.flightId = resData.id;
+
         return new Flight(
           resData.id,
           resData.flightDate,

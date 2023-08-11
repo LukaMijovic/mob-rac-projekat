@@ -4,25 +4,22 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FlightsPageRoutingModule } from './flights-routing.module';
+import { ReservationPageRoutingModule } from './reservation-routing.module';
 
-import { FlightsPage } from './flights.page';
-import {FlightComponent} from "./flight/flight.component";
-import {Flight} from "../../domain/flight";
+import { ReservationPage } from './reservation.page';
 import {TabBarComponent} from "../tab-bar/tab-bar.component";
 import {HomePageModule} from "../home.module";
+import {ReservationComponent} from "./reservation/reservation.component";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FlightsPageRoutingModule,
+    ReservationPageRoutingModule,
     HomePageModule
   ],
-  exports: [
-    FlightComponent,
-  ],
-    declarations: [FlightsPage, FlightComponent]
+    declarations: [ReservationPage, ReservationComponent],
+  exports: [TabBarComponent]
 })
-export class FlightsPageModule {}
+export class ReservationPageModule {}

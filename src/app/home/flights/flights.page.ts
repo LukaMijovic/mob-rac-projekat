@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonInput} from "@ionic/angular";
+import {AlertController, IonInput} from "@ionic/angular";
 import {Flight} from "../../domain/flight";
 import {NgForm} from "@angular/forms";
 import {SearchParameters} from "../../domain/dto/SearchParameters";
@@ -18,7 +18,7 @@ export class FlightsPage implements OnInit {
   @ViewChild("calendarInput", {static: true}) calendarInput!: IonInput;
   public inputModel: string = "";
 
-  constructor(private flightsService: FlightsService) { }
+  constructor(private flightsService: FlightsService, private alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -37,9 +37,9 @@ export class FlightsPage implements OnInit {
     let params = new SearchParameters(this.form.value["departures"], this.form.value["arrivals"], this.form.value["date"]);
     //console.log(this.form.value["date"]);
     this.flightsService.searchFlights(params).subscribe(flightsData => {
-      console.log(new Date('2023-07-26T15:30:00'));
-      console.log(new Date())
-      console.log(new Date(flightsData[0].flightDate).getHours());
+      // console.log(new Date('2023-07-26T15:30:00'));
+      // console.log(new Date())
+      // console.log(new Date(flightsData[0].flightDate).getHours());
       // console.log(new Date().getHours());
       // console.log(flightsData[0].departureScheduled);
       // console.log((flightsData[0].departureScheduled as Date).getHours());
@@ -48,6 +48,19 @@ export class FlightsPage implements OnInit {
         flight.arrivalScheduled = new Date(flight.arrivalScheduled);
       });
       this.flights = flightsData;
+
+      if (this.flights.length === 0) {
+        this.alertController.create({
+          header: 'Fail',
+          subHeader: 'No flights found!',
+          message: 'There are no flights for this route and date.',
+          buttons: ['OK']
+        }).then(
+          alert => {
+            alert.present();
+          }
+        );
+      }
     });
   }
 }

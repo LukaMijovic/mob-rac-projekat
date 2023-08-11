@@ -9,6 +9,9 @@ import { FlightDetailsPageRoutingModule } from './flight-details-routing.module'
 import { FlightDetailsPage } from './flight-details.page';
 import {FlightsPageRoutingModule} from "../flights-routing.module";
 import {FlightsPageModule} from "../flights.module";
+import {PriceListModalComponent} from "./price-list-modal/price-list-modal.component";
+import {TabBarComponent} from "../../tab-bar/tab-bar.component";
+import {HomePageModule} from "../../home.module";
 
 @NgModule({
   imports: [
@@ -17,7 +20,9 @@ import {FlightsPageModule} from "../flights.module";
     IonicModule,
     FlightDetailsPageRoutingModule,
     FlightsPageModule,
+    HomePageModule,
   ],
-  declarations: [FlightDetailsPage]
+  declarations: [FlightDetailsPage, PriceListModalComponent],
+  entryComponents: [PriceListModalComponent],
 })
 export class FlightDetailsPageModule {}
