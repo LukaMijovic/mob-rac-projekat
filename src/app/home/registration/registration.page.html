@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #registrationForm="ngForm" (ngSubmit)="registration()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">First name:</ion-label>
+            <ion-input (ionInput)="firstName" ngModel name="firstName" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Last name:</ion-label>
+            <ion-input (ionInput)="lastName" ngModel name="lastName" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Username:</ion-label>
+            <ion-input (ionInput)="username" ngModel name="username" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Password:</ion-label>
+            <ion-input (ionInput)="password" ngModel name="password" type="password" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+       <ion-col>
+         <ion-item>
+           <ion-label color="secondary" position="floating">Email:</ion-label>
+           <ion-input (ionInput)="email" type="email" ngModel name="email" required email></ion-input>
+         </ion-item>
+       </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Phone number:</ion-label>
+            <ion-input (ionInput)="phone" type="tel" ngModel name="phone" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Birthday:</ion-label>
+            <ion-input (ionInput)="birthday" type="date" ngModel name="birthday" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">Country:</ion-label>
+            <ion-input (ionInput)="country" ngModel name="country" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary" position="floating">City:</ion-label>
+            <ion-input (ionInput)="city" ngModel name="city" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col>
+          <ion-button type="submit" shape="round" expand="block" [disabled]="registrationForm.invalid">Register</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

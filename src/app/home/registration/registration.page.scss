@@ -1,0 +1,15 @@
+h2 {
+  text-align: center;
+}
+
+form {
+  padding: 6rem 3rem 2rem 3rem;
+}
+
+ion-button {
+  --background: var(--ion-color-main);
+  --background-hover: var(--ion-color-main-hover);
+  --background-activated: var(--ion-color-main-pressed);
+  --color: white;
+  margin: 1rem 0rem;
+}

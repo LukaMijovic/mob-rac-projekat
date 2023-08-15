@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons *ngIf="!isLoading" slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{username}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="secondary" routerLink="/home" (click)="logOut()">Log out</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary" name="lines"></ion-spinner>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <app-bought-ticket *ngFor="let ticket of boughtTickets" [reservation]="ticket"></app-bought-ticket>
+  </div>
+</ion-content>

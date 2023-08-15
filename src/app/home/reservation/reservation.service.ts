@@ -16,6 +16,18 @@ export class ReservationService {
     this.cusomterId = LogInService.getUserId();
   }
 
+
+  getAllReservations(): Observable<ReservationDTO[]> {
+    const url = `http://localhost:8090/api/booking/v2/get-all/requested/${this.cusomterId}`;
+
+    return this.http.get<ReservationDTO[]>(url).pipe(
+      map(resData => {
+        console.log("Dobio odgovor!");
+        return resData;
+      })
+    );
+  }
+
   cancelReservation(id: number) {
     const url = `http://localhost:8090/api/booking/v1/cancel/${id}`;
 
@@ -26,13 +38,21 @@ export class ReservationService {
       })
     );
   }
+  buyReservation(id: number) {
+    const url = `http://localhost:8090/api/booking/v1/pay/${id}`;
 
-  getAllReservations(): Observable<ReservationDTO[]> {
-    const url = `http://localhost:8090/api/booking/v2/get-all/${this.cusomterId}`;
+    return this.http.put<GetResponse>(url, {}).pipe(
+      map(resData => {
+        return resData.success;
+      })
+    );
+  }
+
+  getAllBoughtTickets(id: number) {
+    const url = `http://localhost:8090/api/booking/v1/get-all/paid/${id}`;
 
     return this.http.get<ReservationDTO[]>(url).pipe(
       map(resData => {
-        console.log("Dobio odgovor!");
         return resData;
       })
     );

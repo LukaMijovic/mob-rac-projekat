@@ -47,24 +47,52 @@ export class ReservationComponent  implements OnInit {
       await alert.present();
     }
   }
+
+  updateReservationsArray() {
+    let helper: ReservationDTO[] = [];
+
+    for (let i = 0; i < this.reservationService.reservations.length; i++) {
+      if (this.reservationService.reservations[i].id != this.reservation.id) {
+        helper.push(this.reservationService.reservations[i]);
+      }
+    }
+
+    this.reservationService.reservations = helper;
+  }
+
   cancelReservation(reservationId: number) {
     this.reservationService.cancelReservation(reservationId).subscribe(
       res => {
         this.presentAlert(res).then(
           () => {
-            let helper: ReservationDTO[] = [];
-
-            for (let i = 0; i < this.reservationService.reservations.length; i++) {
-              if (this.reservationService.reservations[i].id != this.reservation.id) {
-                helper.push(this.reservationService.reservations[i]);
-              }
-            }
-
-            this.reservationService.reservations = helper;
+            this.updateReservationsArray();
           }
         );
       }
     );
 
+  }
+
+  buyReservation(reservationId: number) {
+    this.reservationService.buyReservation(reservationId).subscribe(
+      res => {
+        if (res) {
+          this.alertController.create({
+              header: 'Success!',
+              subHeader: 'Reservation is purchased',
+              message: 'Your reservation has been purchased.',
+              buttons: ['OK']
+          }).then(
+            alert => {
+              alert.present().then(
+                () => {
+                  this.updateReservationsArray();
+                }
+              );
+            }
+          );
+        }
+      }
+    );
   }
 }

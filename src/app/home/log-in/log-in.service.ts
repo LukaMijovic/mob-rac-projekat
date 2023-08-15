@@ -12,6 +12,9 @@ export class LogInService {
   public isLoggedIn:boolean = false;
   //public customerDTO: CustomerDTO | undefined;
   private static userId: number;
+  private static username: string;
+
+  public static token: string;
 
   constructor(private http: HttpClient) {
   }
@@ -20,35 +23,50 @@ export class LogInService {
    return LogInService.userId;
   }
 
+  public static setUserId(id: number) {
+    LogInService.userId = id;
+  }
+
+  public static getUsername(): string {
+    return LogInService.username;
+  }
+
   public logIn(email:string, password:string) {
     console.log("Uspensa forma: " + email + " " + password);
 
-    const url = "http://localhost:8090/api/customer/v1/login";
+    const url = "http://localhost:8090/api/auth/v1/login";
 
     let customer = new CustomerLogIn(email, password);
     //let customerDTO: CustomerDTO = new CustomerDTO();
     console.log("Spremam se da posaljem request");
-    return this.http.post<CustomerDTO>(url, customer)
+    return this.http.post<GetLogInResponse>(url, customer)
       .pipe(
         map((resData) => {
-          console.log("Usoa u MAP");
+          console.log(resData);
+          console.log(resData.customerDTO)
+          console.log(resData.token)
 
-          LogInService.userId = resData.id;
+          const dto = resData.customerDTO;
+          LogInService.token = resData.token;
+          LogInService.userId = dto.id;
+          LogInService.username = dto.username;
+
           this.isLoggedIn = true;
+
           return new CustomerDTO(
-            resData.id,
-            resData.username,
-            resData.email,
-            resData.password,
-            resData.phone,
-            resData.firstName,
-            resData.lastName,
-            resData.birthDate,
-            resData.city,
-            resData.country,
-            resData.accountStatus,
-            resData.registrationTime,
-            resData.lastEditTime
+            dto.id,
+            dto.username,
+            dto.email,
+            dto.password,
+            dto.phone,
+            dto.firstName,
+            dto.lastName,
+            dto.birthDate,
+            dto.city,
+            dto.country,
+            dto.accountStatus,
+            dto.registrationTime,
+            dto.lastEditTime
           );
         })
       );
@@ -63,4 +81,14 @@ export class LogInService {
 
     //this.isLoggedIn = true;
   }
+
+  logOut() {
+    this.isLoggedIn = false;
+    LogInService.setUserId(-1);
+  }
+}
+
+interface GetLogInResponse {
+  customerDTO: CustomerDTO,
+  token: string
 }

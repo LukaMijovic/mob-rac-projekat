@@ -11,7 +11,7 @@
   </ion-card-content>
 
   <ion-buttons>
-    <ion-button fill="clear" color="primary" size="large" shape="round">Buy</ion-button>
+    <ion-button fill="clear" color="primary" size="large" shape="round" (click)="buyReservation(reservation.id)">Buy</ion-button>
     <ion-button fill="clear" slot="end" shape="round" (click)="cancelReservation(reservation.id)">
       <ion-icon name="trash" color="danger" size="large"></ion-icon>
     </ion-button>
