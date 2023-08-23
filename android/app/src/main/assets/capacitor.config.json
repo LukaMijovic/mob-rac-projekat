@@ -1,0 +1,6 @@
+{
+	"appId": "com.airsales",
+	"appName": "AirSales",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

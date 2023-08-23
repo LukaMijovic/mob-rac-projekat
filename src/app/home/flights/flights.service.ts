@@ -13,6 +13,7 @@ import {LogInService} from "../log-in/log-in.service";
 export class FlightsService {
 
   static flightId: number;
+  public headers: HttpHeaders = new HttpHeaders().append('Authorization', `Bearer ${LogInService.token}`);
 
   constructor(private http: HttpClient) { }
 
@@ -20,15 +21,13 @@ export class FlightsService {
     const url = "http://localhost:8090/api/flight/v2/get/scheduled/0";
     console.log(params.cityDep + " " + params.cityArr + " " + params.timeTravel);
 
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${LogInService.token}`);
-    headers = headers.append('x-Flatten', 'true');
-    headers = headers.append('Content-Type', 'application/json');
+    // headers = headers.append('x-Flatten', 'true');
+    // headers = headers.append('Content-Type', 'application/json');
     // headers = headers.append("")
-    console.log(headers.get("Authorization"))
-    console.log(headers.get("Content-Type"))
+    // console.log(headers.get("Authorization"))
+    // console.log(headers.get("Content-Type"))
 
-    return this.http.post<GetResponseFlights>(url, params, {headers: headers}).pipe(
+    return this.http.post<GetResponseFlights>(url, params, {headers: this.headers}).pipe(
       map((resData) => {
         console.log("Dobio odgovor!");
         console.log(resData);
@@ -41,7 +40,7 @@ export class FlightsService {
   getClassPrices(flightId: string | null) {
     const url = `http://localhost:8090/api/pricelist/v1/flight/${flightId}`;
 
-    return this.http.get<PriceListDTO>(url).pipe(
+    return this.http.get<PriceListDTO>(url, {headers: this.headers}).pipe(
       map(resData => {
         return new PriceListDTO(
           resData.id,
@@ -58,7 +57,7 @@ export class FlightsService {
   getSpecificFlight(id: string | null) {
     const url = `http://localhost:8090/api/flight/v1/get/${id}/scheduled`;
 
-    return this.http.get<Flight>(url).pipe(
+    return this.http.get<Flight>(url, {headers: this.headers}).pipe(
       map(resData => {
 
         FlightsService.flightId = resData.id;
