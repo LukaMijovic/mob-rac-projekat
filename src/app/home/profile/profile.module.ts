@@ -8,14 +8,16 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 import {BoughtTicketComponent} from "./bought-ticket/bought-ticket.component";
+import {HomePageModule} from "../home.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProfilePageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ProfilePageRoutingModule,
+        HomePageModule
+    ],
     declarations: [ProfilePage, BoughtTicketComponent],
   exports: [BoughtTicketComponent]
 })

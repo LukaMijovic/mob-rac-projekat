@@ -11,22 +11,15 @@ import {LogInService} from "../log-in/log-in.service";
   providedIn: 'root'
 })
 export class FlightsService {
-
-  static flightId: number;
-
   constructor(private http: HttpClient) { }
 
   searchFlights(params: SearchParameters): Observable<Flight[]> {
     const url = "http://localhost:8090/api/flight/v2/get/scheduled/0";
     console.log(params.cityDep + " " + params.cityArr + " " + params.timeTravel);
 
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${LogInService.token}`);
-    headers = headers.append('x-Flatten', 'true');
-    headers = headers.append('Content-Type', 'application/json');
-    // headers = headers.append("")
-    console.log(headers.get("Authorization"))
-    console.log(headers.get("Content-Type"))
+    //'Content-Type': 'application/json'
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
 
     return this.http.post<GetResponseFlights>(url, params, {headers: headers}).pipe(
       map((resData) => {
@@ -41,7 +34,10 @@ export class FlightsService {
   getClassPrices(flightId: string | null) {
     const url = `http://localhost:8090/api/pricelist/v1/flight/${flightId}`;
 
-    return this.http.get<PriceListDTO>(url).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.get<PriceListDTO>(url, {headers: headers}).pipe(
       map(resData => {
         return new PriceListDTO(
           resData.id,
@@ -58,10 +54,13 @@ export class FlightsService {
   getSpecificFlight(id: string | null) {
     const url = `http://localhost:8090/api/flight/v1/get/${id}/scheduled`;
 
-    return this.http.get<Flight>(url).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.get<Flight>(url, {headers: headers}).pipe(
       map(resData => {
 
-        FlightsService.flightId = resData.id;
+        localStorage.setItem("flightId", "" + resData.id);
 
         return new Flight(
           resData.id,

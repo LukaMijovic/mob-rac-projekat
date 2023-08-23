@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {LogInService} from "../log-in/log-in.service";
 import {ReservationDTO} from "../../domain/dto/reservationDTO";
 import {map, Observable} from "rxjs";
@@ -13,14 +13,17 @@ export class ReservationService {
   reservations: ReservationDTO[] = [];
 
   constructor(private http: HttpClient) {
-    this.cusomterId = LogInService.getUserId();
+    this.cusomterId = Number(localStorage.getItem("userId"));
   }
 
 
   getAllReservations(): Observable<ReservationDTO[]> {
     const url = `http://localhost:8090/api/booking/v2/get-all/requested/${this.cusomterId}`;
 
-    return this.http.get<ReservationDTO[]>(url).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.get<ReservationDTO[]>(url, {headers: headers}).pipe(
       map(resData => {
         console.log("Dobio odgovor!");
         return resData;
@@ -31,7 +34,10 @@ export class ReservationService {
   cancelReservation(id: number) {
     const url = `http://localhost:8090/api/booking/v1/cancel/${id}`;
 
-    return this.http.put<GetResponse>(url,{}).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.put<GetResponse>(url,{}, {headers: headers}).pipe(
       map(resData => {
         console.log(resData.id);
         return resData.success;
@@ -41,7 +47,10 @@ export class ReservationService {
   buyReservation(id: number) {
     const url = `http://localhost:8090/api/booking/v1/pay/${id}`;
 
-    return this.http.put<GetResponse>(url, {}).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.put<GetResponse>(url, {}, {headers: headers}).pipe(
       map(resData => {
         return resData.success;
       })
@@ -51,7 +60,10 @@ export class ReservationService {
   getAllBoughtTickets(id: number) {
     const url = `http://localhost:8090/api/booking/v1/get-all/paid/${id}`;
 
-    return this.http.get<ReservationDTO[]>(url).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.get<ReservationDTO[]>(url, {headers: headers}).pipe(
       map(resData => {
         return resData;
       })

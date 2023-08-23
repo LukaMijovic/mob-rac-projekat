@@ -10,18 +10,18 @@ import {ReservationDTO} from "../../domain/dto/reservationDTO";
 })
 export class ProfilePage implements OnInit {
 
-  public username: string;
+  public username: string | null;
   public isLoading: boolean = false;
   public boughtTickets: ReservationDTO[] = [];
 
   constructor(private reservationService: ReservationService, private logInService: LogInService) {
-    this.username = LogInService.getUsername();
+    this.username = localStorage.getItem("username");
   }
 
   ngOnInit() {
     this.isLoading = true;
 
-    this.reservationService.getAllBoughtTickets(LogInService.getUserId()).subscribe(
+    this.reservationService.getAllBoughtTickets(Number(localStorage.getItem("userId"))).subscribe(
       reservationData => {
         reservationData.map(reservation => {
           reservation.departuresScheduled = new Date(reservation.departuresScheduled);

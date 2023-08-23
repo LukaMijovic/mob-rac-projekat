@@ -11,25 +11,25 @@ export class LogInService {
 
   public isLoggedIn:boolean = false;
   //public customerDTO: CustomerDTO | undefined;
-  private static userId: number;
-  private static username: string;
-
-  public static token: string;
+  // private static userId: number;
+  // private static username: string;
+  //
+  // public static token: string;
 
   constructor(private http: HttpClient) {
   }
 
-  public static getUserId(): number {
-   return LogInService.userId;
-  }
-
-  public static setUserId(id: number) {
-    LogInService.userId = id;
-  }
-
-  public static getUsername(): string {
-    return LogInService.username;
-  }
+  // public static getUserId(): number {
+  //  return LogInService.userId;
+  // }
+  //
+  // public static setUserId(id: number) {
+  //   LogInService.userId = id;
+  // }
+  //
+  // public static getUsername(): string {
+  //   return LogInService.username;
+  // }
 
   public logIn(email:string, password:string) {
     console.log("Uspensa forma: " + email + " " + password);
@@ -47,9 +47,14 @@ export class LogInService {
           console.log(resData.token)
 
           const dto = resData.customerDTO;
-          LogInService.token = resData.token;
-          LogInService.userId = dto.id;
-          LogInService.username = dto.username;
+
+          localStorage.setItem("token", resData.token);
+          localStorage.setItem("userId", "" + dto.id);
+          localStorage.setItem("username", dto.username);
+
+          // LogInService.token = resData.token;
+          // LogInService.userId = dto.id;
+          // LogInService.username = dto.username;
 
           this.isLoggedIn = true;
 
@@ -84,7 +89,7 @@ export class LogInService {
 
   logOut() {
     this.isLoggedIn = false;
-    LogInService.setUserId(-1);
+    localStorage.setItem("userId", "-1");
   }
 }
 

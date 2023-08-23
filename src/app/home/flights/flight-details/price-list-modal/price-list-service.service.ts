@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BookingDTO} from "../../../../domain/dto/bookingDTO";
 import {map} from "rxjs";
+import {LogInService} from "../../../log-in/log-in.service";
 
 
 @Injectable({
@@ -14,7 +15,10 @@ export class PriceListServiceService {
   chosePrice(userId: number, flightId: number, chosenClass: string) {
     const url = "http://localhost:8090/api/booking/v1/create";
 
-    return this.http.post<GetResponse>(url, new BookingDTO(flightId, userId, chosenClass)).pipe(
+    const myToken = `Bearer ${localStorage.getItem("token")}`;
+    let headers = new HttpHeaders().set("Authorization", myToken).set("Content-Type", "application/json");
+
+    return this.http.post<GetResponse>(url, new BookingDTO(flightId, userId, chosenClass), {headers: headers}).pipe(
       map(resData => {
         console.log(resData);
         return resData.success;

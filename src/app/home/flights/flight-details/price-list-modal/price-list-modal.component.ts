@@ -36,7 +36,7 @@ export class PriceListModalComponent  implements OnInit {
     //     );
     //   }
     // );
-    this.flightService.getClassPrices("" + FlightsService.flightId).subscribe(
+    this.flightService.getClassPrices("" + localStorage.getItem("flightId")).subscribe(
       priceList => {
         this.priceList = priceList;
       }
@@ -71,7 +71,7 @@ export class PriceListModalComponent  implements OnInit {
   }
 
   choosePrice(chosenClass: string) {
-    this.priceListService.chosePrice(LogInService.getUserId(), FlightsService.flightId, chosenClass).subscribe(
+    this.priceListService.chosePrice(Number(localStorage.getItem("userId")), Number(localStorage.getItem("flightId")), chosenClass).subscribe(
       res => {
           this.presentAlert(res).then(() => this.onCancel());
       }
